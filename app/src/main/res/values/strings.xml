@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Wagba_App</string>
+    <string name="title">WAGBA</string>
+    <string name="slogan">Better Studying Through Delivery</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+
+    <string name="enter_username">Enter username</string>
+    <string name="enter_password">Enter password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_phone">Enter Phone Number</string>
+
+
+    <string name="rememberMe">Remember Me</string>
+    <string name="forgot_password">Forgot Password</string>
+
+    <string name="macdonalds">McDonald\'s</string>
+    <string name="viewMenu">View Menu</string>
+    <string name="AddtoCart">Add to Cart</string>
+
+    <string name="price">100.00 EGP</string>
+
+
+    <string name="navbar_open">Open Nav Drawer</string>
+    <string name="navbar_close">Close Nav Drawer</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string-array name="quantity_string_array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+    <string name="title_activity_order_tracking">OrderTracking</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+
+</resources>

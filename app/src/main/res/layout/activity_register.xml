@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
+    android:background="@color/screenBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="25dp"
+            android:src="@drawable/ic_action_name"></ImageView>
+
+        <TextView
+            android:layout_width="265dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bangers"
+            android:text="@string/register"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="60sp"
+            android:layout_marginTop="0dp"></TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_username"
+                app:hintTextColor="@color/textColor"
+                app:startIconDrawable="@drawable/ic_username"
+                app:startIconTint="@color/textColor">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/username"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="35dp"
+                    android:fontFamily="@font/bangers"
+                    android:inputType="text"
+                    android:textColor="@color/textColor">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_email"
+                app:hintTextColor="@color/textColor"
+                app:startIconDrawable="@drawable/ic_email"
+                app:startIconTint="@color/textColor"
+                android:layout_marginTop="15dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/email"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="35dp"
+                    android:fontFamily="@font/bangers"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/textColor">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_password"
+                app:hintTextColor="@color/textColor"
+                app:startIconDrawable="@drawable/ic_password"
+                app:startIconTint="@color/textColor"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/textColor"
+                android:layout_marginTop="15dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/password"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bangers"
+                    android:textColor="@color/textColor"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="35dp"
+                    android:inputType="textPassword">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="175dp"
+                android:visibility="gone"></ProgressBar>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/confirm_password"
+                app:hintTextColor="@color/textColor"
+                app:startIconDrawable="@drawable/ic_password"
+                app:startIconTint="@color/textColor"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/textColor"
+                android:layout_marginTop="15dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/confirmpassword"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bangers"
+                    android:textColor="@color/textColor"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="35dp"
+                    android:inputType="textPassword">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_phone"
+                app:hintTextColor="@color/textColor"
+                app:startIconDrawable="@drawable/ic_phone"
+                app:startIconTint="@color/textColor"
+                android:layout_marginTop="15dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/phone"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bangers"
+                    android:textColor="@color/textColor"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="35dp"
+                    android:inputType="phone">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/registrationbtn"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/bangers"
+            android:text="@string/register"
+            android:background="@drawable/buttons"
+            android:onClick="loginRedirect"></androidx.appcompat.widget.AppCompatButton>
+    </LinearLayout>
+
+
+
+
+
+</ScrollView>

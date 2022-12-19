@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/black</item>
+
+    </style>
+
+    <style name="navigationTheme">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorControlHighlight">@color/black</item>
+    </style>
+
+    <style name="ScoreButtons" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_background</item>
+    </style>
+
+    <style name="PlusButtons" parent="ScoreButtons">
+        <item name="android:src">@drawable/ic_add</item>
+    </style>
+
+
+    <style name="MinusButtons" parent="ScoreButtons">
+        <item name="android:src">@drawable/ic_minus</item>
+    </style>
+
+    <style name="ScoreText">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Headline</item>
+    </style>
+</resources>

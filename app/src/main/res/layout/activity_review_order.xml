@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_marginTop="-60dp"
+    tools:context=".ReviewOrder">
+
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/drawer_layout"
+        android:background="@color/screenBackground"
+        tools:context=".MainActivity"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nav_view"
+            app:headerLayout="@layout/header"
+            app:menu="@menu/drawer_menu"
+            app:itemTextColor="@color/textColor"
+            android:layout_gravity="start">
+        </com.google.android.material.navigation.NavigationView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/backBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:src="@drawable/ic_action_name"></ImageView>
+
+            <TextView
+                android:id="@+id/title"
+                android:textColor="@color/textColor"
+                android:layout_width="match_parent"
+                android:layout_height="121dp"
+                android:fontFamily="@font/bangers"
+                android:gravity="center"
+                android:text="@string/title"
+                android:textSize="60sp">
+            </TextView>
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:id="@+id/toolbar"
+                app:navigationIcon="@drawable/ic_meny"
+                android:layout_alignParentRight="true"></androidx.appcompat.widget.Toolbar>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:src="@drawable/ic_action_name"></ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bangers"
+                android:text="Identity Verification"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="28sp"
+                android:layout_marginTop="75dp"
+                android:layout_marginBottom="25dp"></TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="50dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_email"
+                    app:hintTextColor="@color/textColor"
+                    app:startIconDrawable="@drawable/ic_email"
+                    app:startIconTint="@color/textColor"
+                    android:layout_marginTop="15dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginRight="35dp"
+                        android:fontFamily="@font/bangers"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/textColor">
+
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Pickup Location"
+                    app:hintTextColor="@color/textColor"
+                    app:startIconDrawable="@drawable/ic_location"
+                    app:startIconTint="@color/textColor"
+                    android:layout_marginTop="15dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bangers"
+                        android:textColor="@color/textColor"
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginRight="35dp"
+                        android:inputType="text">
+
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Pickup Time"
+                    app:hintTextColor="@color/textColor"
+                    app:startIconDrawable="@drawable/ic_time"
+                    app:startIconTint="@color/textColor"
+                    android:layout_marginTop="15dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bangers"
+                        android:textColor="@color/textColor"
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginRight="35dp"
+                        android:inputType="time">
+
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:fontFamily="@font/bangers"
+                android:text="Place Order"
+                android:background="@drawable/buttons"
+                android:onClick="orderStatusRedirect"></androidx.appcompat.widget.AppCompatButton>
+        </LinearLayout>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

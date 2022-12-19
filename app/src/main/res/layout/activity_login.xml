@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:background="@color/screenBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="25dp"
+            android:src="@drawable/ic_action_name"></ImageView>
+
+        <TextView
+            android:layout_width="159dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bangers"
+            android:text="@string/login"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="60sp"></TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="80dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_email"
+                app:hintTextColor="@color/textColor"
+                app:startIconDrawable="@drawable/ic_username"
+                app:startIconTint="@color/textColor">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loginEmail"
+                    android:fontFamily="@font/bangers"
+                    android:textColor="@color/textColor"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="35dp"
+                    android:inputType="textEmailAddress">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_password"
+                app:hintTextColor="@color/textColor"
+                app:startIconDrawable="@drawable/ic_password"
+                app:startIconTint="@color/textColor"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/textColor"
+                android:layout_marginTop="25dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loginPassword"
+                    android:fontFamily="@font/bangers"
+                    android:textColor="@color/textColor"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="35dp"
+                    android:inputType="textPassword">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                android:text="@string/rememberMe"
+                android:textColor="@color/textColor"
+                android:buttonTint="@color/textColor"
+                android:fontFamily="@font/bangers"
+                android:textSize="13sp">
+            </CheckBox>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forgot_password"
+                android:background="#00000000"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/textColor"
+                android:textSize="13sp"
+                android:fontFamily="@font/bangers">
+            </Button>
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:id="@+id/loginBtn"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/bangers"
+            android:text="@string/login"
+            android:background="@drawable/buttons"
+            android:onClick="homeRedirect"></androidx.appcompat.widget.AppCompatButton>
+    </LinearLayout>
+
+
+
+
+
+</ScrollView>

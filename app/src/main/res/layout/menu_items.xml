@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_gravity="center"
+    android:layout_margin="5dp"
+    android:layout_marginTop="-20dp"
+    android:onClick="menuRedirect"
+    app:cardBackgroundColor="@color/screenBackground"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="5dp"
+    app:strokeColor="@color/borderColor"
+    app:strokeWidth="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <TextView
+            android:id="@+id/restaurantName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bangers"
+            android:padding="25sp"
+            android:text="@string/macdonalds"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/viewmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="-4dp"
+            android:layout_marginBottom="17dp"
+            android:background="#00000000"
+            android:fontFamily="@font/bangers"
+            android:onClick="menuRedirect"
+            android:padding="30sp"
+            android:text="@string/viewMenu"
+            android:textColor="@color/textColor"></Button>
+
+        <ImageView
+            android:id="@+id/restaurantImage"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginRight="32dp"
+            android:background="#00000000"
+            android:padding="25dp"
+            android:src="@drawable/mac" />
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>
