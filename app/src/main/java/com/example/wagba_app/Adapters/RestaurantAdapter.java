@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wagba_app.R;
 import com.example.wagba_app.Models.RestaurantData;
+
+
 import com.google.firebase.database.DatabaseReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -44,7 +47,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
         RestaurantData recyclerData = cardsData.get(position);
         holder.itemName.setText(recyclerData.getName());
         holder.itemPrice.setText(recyclerData.getPrice());
-        //holder.itemImage.setImageResource(recyclerData.getImgid());
+        String link = recyclerData.getImage();
+        Picasso.get().load(link).into(holder.itemImage);
     }
 
     @Override

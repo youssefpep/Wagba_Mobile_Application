@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         cardsData=new ArrayList<>();
 
-        //added data to array list
+
         cardsData.add(new CardsData("McDonald\'s",R.drawable.mac));
         cardsData.add(new CardsData("KFC",R.drawable.kfc));
         cardsData.add(new CardsData("Hardee\'s",R.drawable.hardees));
@@ -99,12 +99,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //added data from arraylist to adapter class.
-        MyMenuAdapter adapter=new MyMenuAdapter(cardsData, this);
-        //setting grid layout manager to implement grid view.
-        // in this method '2' represents number of colums to be displayed in grid view.
 
-        //at last set adapter to recycler view.
+        MyMenuAdapter adapter=new MyMenuAdapter(cardsData, this);
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
         recyclerView.getAdapter().notifyItemInserted(cardsData.size());

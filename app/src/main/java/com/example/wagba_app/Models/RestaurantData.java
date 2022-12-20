@@ -1,9 +1,13 @@
 package com.example.wagba_app.Models;
 
+import android.net.Uri;
+
+import java.net.URI;
+
 public class RestaurantData {
     private String name;
     private String description;
-    //private int imgid;
+    private String image;
     private String price;
 
     public String getName() {
@@ -22,13 +26,8 @@ public class RestaurantData {
         this.description = description;
     }
 
-    //public int getImgid() {
-        //return imgid;
-    //}
-
-    //public void setImgid(int imgid) {
-        //this.imgid = imgid;
-    //}
+    public String getImage() {return image;}
+    public void setImage(String image) {this.image = image;}
 
     public String getPrice() {
         return price;

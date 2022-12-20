@@ -34,7 +34,6 @@ public class MenuActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
-    private ArrayList<RestaurantData> cardsData;
     private DatabaseReference databaseReference;
     private RestaurantAdapter restaurantAdapter;
     private ArrayList<RestaurantData> list;
@@ -58,7 +57,6 @@ public class MenuActivity extends AppCompatActivity {
 
         list = new ArrayList<>();
         restaurantAdapter = new RestaurantAdapter(list, this);
-        //databaseReference = FirebaseDatabase.getInstance().getReference("mac");
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navbar_open, R.string.navbar_close);
         drawerLayout.addDrawerListener(toggle);
@@ -84,7 +82,7 @@ public class MenuActivity extends AppCompatActivity {
             }else if (title.equals("Cinnabon")) {
                 databaseReference = FirebaseDatabase.getInstance().getReference("cinnabon");
             }
-            else if (title.equals("Papa Johns")) {
+            else if (title.equals("Papa John's")) {
                 databaseReference = FirebaseDatabase.getInstance().getReference("papajohns");
             }
             else if (title.equals("Pizza Hut")) {
@@ -136,6 +134,8 @@ public class MenuActivity extends AppCompatActivity {
                     System.out.println("Name: " + data.getName());
                     System.out.println("Price: " + data.getPrice());
                     System.out.println("Description: " + data.getDescription());
+                    System.out.println("Image: " + data.getImage());
+
                     list.add(data);
                 }
                 restaurantAdapter.notifyDataSetChanged();
