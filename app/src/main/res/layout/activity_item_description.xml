@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_marginTop="-60dp"
     android:background="@color/screenBackground"
-    tools:context=".ItemDescription">
+    tools:context=".Activities.ItemDescription">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/drawer_layout"
         android:background="@color/screenBackground"
-        tools:context=".MainActivity"
+        tools:context=".Activities.MainActivity"
         android:fitsSystemWindows="true"
         tools:openDrawer="start">
 
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="110dp"
+                android:layout_marginTop="150dp"
                 android:src="@drawable/bazooka">
 
             </ImageView>
@@ -84,24 +84,18 @@
                 android:text="Super Crunchy"
                 android:textColor="@color/textColor"></TextView>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <TextView
+                android:id="@+id/itemPrice"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="105dp"
-                android:layout_marginTop="20dp"
-                android:hint="Quantity">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="number"
-                    android:textColor="@color/textColor"
-                    android:background="@color/screenBackground">
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:text="Super Crunchy"
+                android:textColor="@color/textColor"></TextView>
 
             <TextView
-                android:id="@+id/itemName2"
+                android:id="@+id/itemDescription"
                 android:layout_width="250dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="75dp"

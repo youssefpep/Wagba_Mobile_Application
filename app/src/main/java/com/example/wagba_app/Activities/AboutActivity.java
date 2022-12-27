@@ -1,15 +1,16 @@
-package com.example.wagba_app;
+package com.example.wagba_app.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ItemDescription extends AppCompatActivity {
+import com.example.wagba_app.R;
+
+public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
-        setContentView(R.layout.activity_item_description);
+        setContentView(R.layout.activity_about);
     }
 }

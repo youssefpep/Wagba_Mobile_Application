@@ -1,14 +1,16 @@
-package com.example.wagba_app;
+package com.example.wagba_app.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class AboutActivity extends AppCompatActivity {
+import com.example.wagba_app.R;
+
+public class ContactActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_contact);
     }
 }

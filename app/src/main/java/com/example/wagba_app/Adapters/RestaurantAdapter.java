@@ -4,31 +4,29 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wagba_app.Interfaces.ItemClickListener;
 import com.example.wagba_app.R;
 import com.example.wagba_app.Models.RestaurantData;
-
-
-import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.MyHolder> {
     private ArrayList<RestaurantData> cardsData;
     private Context context;
+    private ItemClickListener clickListener;
 
 
 
-    public RestaurantAdapter(ArrayList<RestaurantData> recyclerDataArrayList,  Context context) {
+    public RestaurantAdapter(ArrayList<RestaurantData> recyclerDataArrayList, Context context, ItemClickListener clickListener) {
         this.cardsData = recyclerDataArrayList;
         this.context = context;
+        this.clickListener = clickListener;
 
     }
 
@@ -49,6 +47,20 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
         holder.itemPrice.setText(recyclerData.getPrice());
         String link = recyclerData.getImage();
         Picasso.get().load(link).into(holder.itemImage);
+        holder.description.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Intent intent = new Intent(this, CartActivity.class);
+
+            }
+        });
+        holder.cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     @Override
@@ -56,34 +68,23 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
         return cardsData.size();
     }
 
-
-
+    public void setClickListener(ItemClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
 
     public class MyHolder extends RecyclerView.ViewHolder{
         public TextView itemName;
         public ImageView itemImage;
         public TextView itemPrice;
-        public int mItems;
-        public TextView mItemsText;
-        public ImageButton button;
-
+        public Button description, cart;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
-            button = itemView.findViewById(R.id.increaseItems);
             itemName = itemView.findViewById(R.id.itemName);
             itemImage = itemView.findViewById(R.id.itemImage);
             itemPrice = itemView.findViewById(R.id.itemprice);
-            mItemsText = itemView.findViewById(R.id.itemsCount);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mItems++;
-                    mItemsText.setText(String.valueOf(mItems));
-                }
-            });
+            cart = itemView.findViewById(R.id.addtocart);
+            description = itemView.findViewById(R.id.viewdescription);
         }
-
-
     }
 
 }

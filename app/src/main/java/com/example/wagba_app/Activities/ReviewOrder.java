@@ -1,13 +1,22 @@
-package com.example.wagba_app;
+package com.example.wagba_app.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wagba_app.Activities.AboutActivity;
+import com.example.wagba_app.Activities.CartActivity;
+import com.example.wagba_app.Activities.ContactActivity;
+import com.example.wagba_app.Activities.LoginActivity;
+import com.example.wagba_app.Activities.MainActivity;
+import com.example.wagba_app.Activities.OrderTracking;
+import com.example.wagba_app.Activities.PreviousOrders;
+import com.example.wagba_app.Activities.UserProfileActivity;
+import com.example.wagba_app.Interfaces.UserDao;
+import com.example.wagba_app.Models.UserDatabase;
+import com.example.wagba_app.R;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -16,14 +25,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-
-import java.util.ArrayList;
 
 public class ReviewOrder extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
+    private UserDatabase mUserDatabase;
+    private UserDao mUserDao;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -38,6 +46,8 @@ public class ReviewOrder extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navbar_open, R.string.navbar_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        mUserDatabase = UserDatabase.getDatabase(getApplicationContext());
+        mUserDao = mUserDatabase.userDao();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

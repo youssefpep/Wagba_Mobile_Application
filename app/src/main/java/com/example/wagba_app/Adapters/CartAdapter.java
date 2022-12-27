@@ -38,7 +38,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyHolder> {
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
         CartData recyclerData = cardsData.get(position);
         holder.itemName.setText(recyclerData.getTitle());
-        holder.itemImage.setImageResource(recyclerData.getImgid());
         holder.spinner.setSelection(recyclerData.getSpinnerValue());
         holder.itemPrice.setText(recyclerData.getPrice());
 

@@ -48,7 +48,7 @@
             android:layout_alignBottom="@+id/itemName"
             android:layout_marginStart="100dp"
             android:layout_marginTop="-15dp"
-            android:layout_marginBottom="-25dp"
+            android:layout_marginBottom="-45dp"
             android:fontFamily="@font/bangers"
             android:padding="25sp"
             android:text="@string/price"
@@ -57,15 +57,13 @@
             android:textSize="12sp" />
 
         <Button
-            android:id="@+id/viewmenu"
-            android:layout_width="wrap_content"
+            android:id="@+id/addtocart"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/itemprice"
-            android:layout_marginStart="120dp"
-            android:layout_marginBottom="-32dp"
+            android:layout_marginStart="220dp"
             android:background="#00000000"
             android:fontFamily="@font/bangers"
-            android:onClick="menuRedirect"
             android:padding="30sp"
             android:text="@string/AddtoCart"
             android:textColor="@color/textColor"
@@ -80,39 +78,12 @@
             android:layout_marginBottom="-55dp"
             android:background="#00000000"
             android:fontFamily="@font/bangers"
-            android:onClick="viewDescription"
             android:padding="30sp"
             android:text="View Description"
             android:textColor="@color/textColor"
             android:textSize="12sp"></Button>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="15dp"
-            android:orientation="horizontal">
 
-
-            <TextView
-                android:id="@+id/itemsCount"
-                style="@style/ScoreText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginRight="10dp"
-                android:text="0"></TextView>
-
-            <ImageButton
-                android:id="@+id/increaseItems"
-                style="@style/PlusButtons"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"></ImageButton>
-
-
-        </LinearLayout>
 
 
     </RelativeLayout>

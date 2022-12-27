@@ -9,6 +9,7 @@ public class RestaurantData {
     private String description;
     private String image;
     private String price;
+    private int id;
 
     public String getName() {
         return name;
@@ -37,6 +38,11 @@ public class RestaurantData {
         this.price = price;
     }
 
+    public int getId() {
+        return id;
+    }
 
-
+    public void setId(int id) {
+        this.id = id;
+    }
 }

@@ -3,9 +3,11 @@ package com.example.wagba_app.Models;
 public class CartData {
 
     private String title;
-    private int imgid;
+    private String image;
     private String price;
     private int spinnerValue;
+
+
 
     public String getTitle() {
         return title;
@@ -15,19 +17,19 @@ public class CartData {
         this.title = title;
     }
 
-    public int getImgid() {
-        return imgid;
+    public String getImage() {
+        return image;
     }
 
-    public void setImgid(int imgid) {
-        this.imgid = imgid;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getPrice() {
         return price;
     }
 
-    public void setPrice(int imgid) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -43,9 +45,9 @@ public class CartData {
 
 
 
-    public CartData(String title, int imgid, String price, int spinnerValue) {
+    public CartData(String title, String image, String price, int spinnerValue) {
         this.title = title;
-        this.imgid = imgid;
+        this.image = image;
         this.price = price;
         this.spinnerValue = spinnerValue;
     }

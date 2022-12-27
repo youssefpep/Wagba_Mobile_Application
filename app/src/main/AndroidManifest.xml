@@ -18,84 +18,84 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ItemDescription"
+            android:name=".Activities.ItemDescription"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ContactActivity"
+            android:name=".Activities.ContactActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".AboutActivity"
+            android:name=".Activities.AboutActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".UserProfileActivity"
+            android:name=".Activities.UserProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PreviousOrders"
+            android:name=".Activities.PreviousOrders"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".OrderTracking"
+            android:name=".Activities.OrderTracking"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ReviewOrder"
+            android:name=".Activities.ReviewOrder"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".CartActivity"
+            android:name=".Activities.CartActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MenuActivity"
+            android:name=".Activities.MenuActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Activities.RegisterActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Splash_Screen"
+            android:name=".Activities.Splash_Screen"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -108,7 +108,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

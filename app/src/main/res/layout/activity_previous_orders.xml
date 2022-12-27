@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:layout_marginTop="-60dp"
-    tools:context=".PreviousOrders">
+    tools:context=".Activities.PreviousOrders">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/drawer_layout"
         android:background="@color/screenBackground"
-        tools:context=".MainActivity"
+        tools:context=".Activities.MainActivity"
         android:fitsSystemWindows="true"
         tools:openDrawer="start">
 

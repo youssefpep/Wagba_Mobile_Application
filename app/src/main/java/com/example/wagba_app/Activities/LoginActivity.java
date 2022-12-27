@@ -1,20 +1,21 @@
-package com.example.wagba_app;
+package com.example.wagba_app.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.wagba_app.Interfaces.UserDao;
+import com.example.wagba_app.Models.User;
+import com.example.wagba_app.Models.UserDatabase;
+import com.example.wagba_app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -27,6 +28,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth auth;
     private FirebaseUser user;
     private ProgressDialog progressDialog;
+    private UserDatabase mUserDatabase;
+    private UserDao mUserDao;
 
 
     @Override
@@ -40,6 +43,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         progressDialog = new ProgressDialog(this);
+        mUserDatabase = UserDatabase.getDatabase(getApplicationContext());
+        mUserDao = mUserDatabase.userDao();
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +75,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             progressDialog.dismiss();
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mUserDao.deleteAll();
+                                    User mUser = new User(null, email, null);
+                                    mUserDao.insert(mUser);
+                                }
+                            }).start();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         }else{

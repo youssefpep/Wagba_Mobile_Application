@@ -1,4 +1,4 @@
-package com.example.wagba_app;
+package com.example.wagba_app.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -14,35 +14,34 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wagba_app.Adapters.MyMenuAdapter;
-import com.example.wagba_app.Adapters.RestaurantAdapter;
-import com.example.wagba_app.Models.CardsData;
+import com.example.wagba_app.Adapters.CartAdapter;
+import com.example.wagba_app.Models.CartData;
+import com.example.wagba_app.R;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
-    private ArrayList<CardsData> cardsData;
-
-
+    private ArrayList<CartData> cardsData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_cart);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
         recyclerView = findViewById(R.id.horizontalRV);
 
-
-
+        Bundle extras = getIntent().getExtras();
+        String position = extras.getString("position");
+        System.out.println(position);
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navbar_open, R.string.navbar_close);
@@ -84,28 +83,21 @@ public class MainActivity extends AppCompatActivity {
 
 
         cardsData=new ArrayList<>();
-
-
-        cardsData.add(new CardsData("McDonald\'s",R.drawable.mac));
-        cardsData.add(new CardsData("KFC",R.drawable.kfc));
-        cardsData.add(new CardsData("Hardee\'s",R.drawable.hardees));
-        cardsData.add(new CardsData("Pizza Hut",R.drawable.pizzahut));
-        cardsData.add(new CardsData("Papa John\'s",R.drawable.papajohns));
-        cardsData.add(new CardsData("Abo Mazen",R.drawable.abomazen));
-        cardsData.add(new CardsData("Bazooka",R.drawable.bazooka));
-        cardsData.add(new CardsData("Arabiata",R.drawable.arabiata));
-        cardsData.add(new CardsData("Cilantro",R.drawable.cilantro));
-        cardsData.add(new CardsData("Cinnabon",R.drawable.cinnabon));
+        //cardsData.add(new CartData("McFlurry",R.drawable.mcflurry, "100.00 EGP",1));
+        //cardsData.add(new CartData("Cocacola",R.drawable.cocacola, "100.00 EGP",2));
 
 
 
+        CartAdapter adapter=new CartAdapter(cardsData,this);
 
-        MyMenuAdapter adapter=new MyMenuAdapter(cardsData, this);
-
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
         recyclerView.getAdapter().notifyItemInserted(cardsData.size());
+    }
+
+    public void reviewOrderRedirect (View view){
+        startActivity(new Intent(getApplicationContext(), ReviewOrder.class));
+
     }
 
 }

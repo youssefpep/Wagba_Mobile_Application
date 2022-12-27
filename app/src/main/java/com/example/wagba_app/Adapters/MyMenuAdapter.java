@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wagba_app.MenuActivity;
+import com.example.wagba_app.Activities.MenuActivity;
 import com.example.wagba_app.Models.CardsData;
 import com.example.wagba_app.R;
 
@@ -24,6 +24,7 @@ public class MyMenuAdapter extends RecyclerView.Adapter<MyMenuAdapter.MyHolder> 
     public MyMenuAdapter(ArrayList<CardsData> recyclerDataArrayList, Context context) {
         this.cardsData = recyclerDataArrayList;
         this.context = context;
+
     }
 
     @NonNull
@@ -46,8 +47,8 @@ public class MyMenuAdapter extends RecyclerView.Adapter<MyMenuAdapter.MyHolder> 
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), MenuActivity.class);
                 intent.putExtra("title", recyclerData.getTitle());
+                intent.putExtra("restaurantPosition", holder.getAdapterPosition());
                 context.startActivity(intent);
-
             }
         });
 

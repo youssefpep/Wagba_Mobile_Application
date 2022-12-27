@@ -1,4 +1,4 @@
-package com.example.wagba_app;
+package com.example.wagba_app.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,19 +10,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
+import com.example.wagba_app.Interfaces.UserDao;
+import com.example.wagba_app.Models.User;
+import com.example.wagba_app.Models.UserDatabase;
+import com.example.wagba_app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText username;
@@ -34,9 +34,9 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private ProgressDialog progressDialog;
-
-
-
+    private UserDatabase mUserDatabase;
+    private UserDao mUserDao;
+    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -44,6 +44,10 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_register);
+
+        mUserDatabase = UserDatabase.getDatabase(getApplicationContext());
+        mUserDao = mUserDatabase.userDao();
+
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -98,14 +102,22 @@ public class RegisterActivity extends AppCompatActivity {
                     progressDialog.show();
                 }
 
-                auth.createUserWithEmailAndPassword(emailInput, passwordInput).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
 
+                auth.createUserWithEmailAndPassword(emailInput, passwordInput).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             progressDialog.dismiss();
                             sendUserToNextActivity();
                             Toast.makeText(RegisterActivity.this, "User has been registered successfully!", Toast.LENGTH_LONG).show();
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mUserDao.deleteAll();
+                                    User mUser = new User(usernameInput, emailInput, phoneInput);
+                                    mUserDao.insert(mUser);
+                                }
+                            }).start();
 
                         }else{
                             System.out.println("Error"+task.getException().getMessage());
@@ -115,11 +127,12 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
             }
+
         });
     }
 
     public void sendUserToNextActivity(){
-        Intent intent = new Intent (RegisterActivity.this, LoginActivity.class);
+        Intent intent = new Intent (RegisterActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }
