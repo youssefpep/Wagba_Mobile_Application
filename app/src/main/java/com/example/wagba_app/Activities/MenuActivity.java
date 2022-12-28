@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -35,10 +37,8 @@ public class MenuActivity extends AppCompatActivity implements ItemClickListener
     private NavigationView navigationView;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
-    private RestaurantData restaurantData;
     private DatabaseReference databaseReference;
     private RestaurantAdapter restaurantAdapter;
-    private ItemClickListener clickListener;
     private ArrayList<RestaurantData> list;
     private String title;
     static int restaurantNumber;
@@ -59,52 +59,55 @@ public class MenuActivity extends AppCompatActivity implements ItemClickListener
         recyclerView = findViewById(R.id.horizontalRV);
         recyclerView.setHasFixedSize(true);
 
-
-        list = new ArrayList<>();
-        restaurantAdapter = new RestaurantAdapter(list, this, this);
-        navigationView.bringToFront();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navbar_open, R.string.navbar_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
         Bundle extras = getIntent().getExtras();
         if (extras != null){
             title = extras.getString("title");
             if (title.equals("McDonald's")){
                 databaseReference = FirebaseDatabase.getInstance().getReference("mac");
-                System.out.println(databaseReference);
             }else if (title.equals("Arabiata")){
                 databaseReference = FirebaseDatabase.getInstance().getReference("arabiata");
-                System.out.println(databaseReference);
             }else if (title.equals("KFC")) {
                 databaseReference = FirebaseDatabase.getInstance().getReference("kfc");
-                System.out.println(databaseReference);
             }else if (title.equals("Bazooka")) {
                 databaseReference = FirebaseDatabase.getInstance().getReference("bazooka");
-                System.out.println(databaseReference);
             }else if (title.equals("Abo Mazen")) {
                 databaseReference = FirebaseDatabase.getInstance().getReference("abomazen");
-                System.out.println(databaseReference);
             }else if (title.equals("Hardee's")) {
                 databaseReference = FirebaseDatabase.getInstance().getReference("hardees");
-                System.out.println(databaseReference);
             }else if (title.equals("Cilantro")) {
                 databaseReference = FirebaseDatabase.getInstance().getReference("cilantro");
-                System.out.println(databaseReference);
             }else if (title.equals("Cinnabon")) {
                 databaseReference = FirebaseDatabase.getInstance().getReference("cinnabon");
-                System.out.println(databaseReference);
             }
             else if (title.equals("Papa John's")) {
                 databaseReference = FirebaseDatabase.getInstance().getReference("papajohns");
-                System.out.println(databaseReference);
             }
             else if (title.equals("Pizza Hut")) {
                 databaseReference = FirebaseDatabase.getInstance().getReference("pizzahut");
-                System.out.println(databaseReference);
             }
             restaurantNumber = extras.getInt("restaurantPosition");
         }
 
+        ItemClickListener clickListener = new ItemClickListener() {
+            @Override
+            public void click(int position) {
+                Intent intent = new Intent(MenuActivity.this, ItemDescription.class);
+                intent.putExtra("RestaurantNumber", restaurantNumber);
+                intent.putExtra("DishNumber", position);
+                intent.putExtra("Name", list.get(position).getName());
+                intent.putExtra("Description", list.get(position).getDescription());
+                intent.putExtra("Image", list.get(position).getImage());
+                intent.putExtra("Price", list.get(position).getPrice());
+                startActivity(intent);
+            }
+        };
+
+        list = new ArrayList<>();
+        restaurantAdapter = new RestaurantAdapter(list, this, clickListener);
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navbar_open, R.string.navbar_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -147,18 +150,6 @@ public class MenuActivity extends AppCompatActivity implements ItemClickListener
         recyclerView.setAdapter(restaurantAdapter);
         recyclerView.getAdapter().notifyItemInserted(list.size());
 
-        clickListener = new ItemClickListener() {
-            @Override
-            public void click(int position) {
-                Intent intent = new Intent(MenuActivity.this, ItemDescription.class);
-                intent.putExtra("Name", restaurantData.getName());
-                intent.putExtra("Description", restaurantData.getDescription());
-                intent.putExtra("Image", restaurantData.getImage());
-                intent.putExtra("Price", restaurantData.getPrice());
-                startActivity(intent);
-            }
-        };
-
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -183,9 +174,4 @@ public class MenuActivity extends AppCompatActivity implements ItemClickListener
         startActivity(new Intent(getApplicationContext(), ItemDescription.class));
     }
 
-    @Override
-    public void click(int position) {
-
-
-    }
 }

@@ -1,6 +1,8 @@
 package com.example.wagba_app.Adapters;
 
+import android.content.ClipData;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +19,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.MyHolder> {
-    private ArrayList<RestaurantData> cardsData;
-    private Context context;
-    private ItemClickListener clickListener;
-
-
+    ArrayList<RestaurantData> cardsData;
+    Context context;
+    ItemClickListener clickListener;
 
     public RestaurantAdapter(ArrayList<RestaurantData> recyclerDataArrayList, Context context, ItemClickListener clickListener) {
         this.cardsData = recyclerDataArrayList;
         this.context = context;
         this.clickListener = clickListener;
-
     }
 
     @NonNull
@@ -50,17 +49,16 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
         holder.description.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(this, CartActivity.class);
-
+                clickListener.click(holder.getAdapterPosition());
             }
         });
         holder.cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickListener.click(holder.getAdapterPosition());
 
             }
         });
-
     }
 
     @Override

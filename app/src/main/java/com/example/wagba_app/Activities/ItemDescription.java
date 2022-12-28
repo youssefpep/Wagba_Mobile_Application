@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +28,9 @@ public class ItemDescription extends AppCompatActivity {
     TextView itemName;
     ImageView itemImage;
     TextView itemDescription;
-    String id, name;
+    TextView itemPrice;
+    String name, description, imageRef, price;
+    int restaurantNo, dishNo;
 
 
     @SuppressLint("MissingInflatedId")
@@ -39,30 +42,63 @@ public class ItemDescription extends AppCompatActivity {
         itemName = findViewById(R.id.itemName);
         itemImage = findViewById(R.id.itemImage);
         itemDescription = findViewById(R.id.itemDescription);
+        itemPrice = findViewById(R.id.itemPrice);
 
         Bundle extras = getIntent().getExtras();
-        name = extras.getString("name");
+        name = extras.getString("Name");
+        description = extras.getString("Description");
+        imageRef = extras.getString("Image");
+        price = extras.getString("Price");
+        restaurantNo = extras.getInt("RestaurantNumber");
+        dishNo = extras.getInt("DishNumber");
+
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        System.out.println(databaseReference);
-        System.out.println(id);
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snapshot1 : snapshot.getChildren()){
-                    RestaurantData data = snapshot1.getValue(RestaurantData.class);
-                    itemName.setText(data.getName());
-                }
-                String value = String.valueOf(snapshot.child("name").getValue());
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    int iterator = 0;
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        if (iterator == restaurantNo) {
+                            String restaurantKey = ds.getKey();
+                            databaseReference.child(restaurantKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()) {
+                                        int iterator2 = 0;
+                                        for (DataSnapshot ds : snapshot.getChildren()) {
+                                            if(iterator2 == dishNo){
+                                                String dishKey = ds.getKey();
+                                                //itemName.setText((CharSequence) ds.child(dishKey).child("name").getValue().toString());
+                                                Object name = ds.child("name").getValue().toString();
+                                                Object description = ds.child("description").getValue().toString();
+                                                Object image = ds.child("image").getValue().toString();
+                                                Object price = ds.child("price").getValue().toString();
+                                                itemName.setText((CharSequence) name);
+                                                itemDescription.setText((CharSequence) description);
+                                                itemPrice.setText((CharSequence) price);
+                                                Picasso.get().load((String) image).into(itemImage);
+
+                                            }
+                                            iterator2++;
+
+                                        }
+
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                        iterator++;
+                    }
+
+                }
             }
 
             @Override

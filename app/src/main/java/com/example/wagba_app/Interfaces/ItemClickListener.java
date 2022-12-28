@@ -2,5 +2,7 @@ package com.example.wagba_app.Interfaces;
 
 
 public interface ItemClickListener {
-    void click(int position);
+    public default void click(int position) {
+
+    }
 }

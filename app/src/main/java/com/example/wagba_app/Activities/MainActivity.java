@@ -7,6 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.appcompat.widget.Toolbar;
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ArrayList<CardsData> cardsData;
-    private ItemClickListener clickListener;
     private UserDatabase mUserDatabase ;
     private UserDao mUserDao;
 
@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity{
         cardsData.add(new CardsData("Pizza Hut",R.drawable.pizzahut));
 
         MyMenuAdapter adapter=new MyMenuAdapter(cardsData, this);
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);

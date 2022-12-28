@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wagba_app.Activities.MenuActivity;
+import com.example.wagba_app.Interfaces.ItemClickListener;
 import com.example.wagba_app.Models.CardsData;
 import com.example.wagba_app.R;
 
@@ -20,11 +21,16 @@ import java.util.ArrayList;
 public class MyMenuAdapter extends RecyclerView.Adapter<MyMenuAdapter.MyHolder> {
     private ArrayList<CardsData> cardsData;
     private Context context;
+    private ItemClickListener itemClickListener;
 
     public MyMenuAdapter(ArrayList<CardsData> recyclerDataArrayList, Context context) {
         this.cardsData = recyclerDataArrayList;
         this.context = context;
 
+    }
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -59,6 +65,8 @@ public class MyMenuAdapter extends RecyclerView.Adapter<MyMenuAdapter.MyHolder> 
     public int getItemCount() {
         return cardsData.size();
     }
+
+
 
     public class MyHolder extends RecyclerView.ViewHolder{
         public TextView restaurantName;

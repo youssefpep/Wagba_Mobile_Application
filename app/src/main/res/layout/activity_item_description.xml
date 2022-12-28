@@ -66,10 +66,10 @@
 
             <ImageView
                 android:id="@+id/itemImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="120dp"
                 android:src="@drawable/bazooka">
 
             </ImageView>
@@ -77,9 +77,9 @@
             <TextView
                 android:id="@+id/itemName"
                 android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="105dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="Super Crunchy"
                 android:textColor="@color/textColor"></TextView>
@@ -87,7 +87,7 @@
             <TextView
                 android:id="@+id/itemPrice"
                 android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="105dp"
                 android:layout_marginTop="25dp"
                 android:gravity="center"
@@ -96,10 +96,11 @@
 
             <TextView
                 android:id="@+id/itemDescription"
-                android:layout_width="250dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="75dp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginTop="25dp"
+                android:layout_marginRight="50dp"
                 android:gravity="center"
                 android:text="Super Crunchy"
                 android:textColor="@color/textColor"></TextView>
@@ -109,12 +110,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="25dp"
                 android:background="@drawable/buttons"
                 android:fontFamily="@font/bangers"
                 android:onClick="homeRedirect"
-                android:text="Add to Cart"></androidx.appcompat.widget.AppCompatButton>
+                android:text="Back to Menu"></androidx.appcompat.widget.AppCompatButton>
         </LinearLayout>
 
     </androidx.drawerlayout.widget.DrawerLayout>
