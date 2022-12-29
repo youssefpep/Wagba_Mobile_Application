@@ -74,26 +74,21 @@ public class ItemDescription extends AppCompatActivity {
                                             if(iterator2 == dishNo){
                                                 String dishKey = ds.getKey();
                                                 Log.d("vDishName", dishKey);
-                                                Object name = ds.child(dishKey).child("name").getValue();
-                                                Object description = ds.child(dishKey).child("description").getValue();
-                                                Object image = ds.child(dishKey).child("image").getValue();
-                                                Object price = ds.child(dishKey).child("price").getValue();
+                                                String name =  ds.child("name").getValue(String.class);
+                                                String description = ds.child("description").getValue(String.class);
+                                                String image = ds.child("image").getValue(String.class);
+                                                String price = ds.child("price").getValue(String.class);
                                                 itemName.setText((CharSequence) name);
                                                 itemDescription.setText((CharSequence) description);
                                                 itemPrice.setText((CharSequence) price);
                                                 Picasso.get().load((String) image).into(itemImage);
                                             }
                                             iterator2++;
-
                                         }
-
                                     }
-
                                 }
-
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
-
                                 }
                             });
                         }
@@ -101,7 +96,6 @@ public class ItemDescription extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
