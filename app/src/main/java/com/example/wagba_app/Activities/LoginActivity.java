@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -46,7 +48,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mUserDatabase = UserDatabase.getDatabase(getApplicationContext());
         mUserDao = mUserDatabase.userDao();
 
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +85,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 }
                             }).start();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
                         }else{
                             progressDialog.dismiss();
                             Toast.makeText(LoginActivity.this, "Failed to log in! Please check credentials and try again", Toast.LENGTH_SHORT).show();

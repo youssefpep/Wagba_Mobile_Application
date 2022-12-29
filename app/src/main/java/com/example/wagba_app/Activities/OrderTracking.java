@@ -19,8 +19,8 @@ public class OrderTracking extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private UserDatabase mUserDatabase = UserDatabase.getDatabase(getApplicationContext());;
-    private UserDao mUserDao = mUserDatabase.userDao();
+    //private UserDatabase mUserDatabase = UserDatabase.getDatabase(getApplicationContext());;
+    //private UserDao mUserDao = mUserDatabase.userDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +38,6 @@ public class OrderTracking extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.archives:
-                        startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
-                        return true;
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         return true;
@@ -48,7 +45,7 @@ public class OrderTracking extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), CartActivity.class));
                         return true;
                     case R.id.track:
-                        startActivity(new Intent(getApplicationContext(), OrderTracking.class));
+                        startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
                         return true;
                     case R.id.logout:
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));

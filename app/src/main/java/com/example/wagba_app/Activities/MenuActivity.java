@@ -6,12 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,10 +24,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.wagba_app.Adapters.RestaurantAdapter;
 import com.example.wagba_app.Interfaces.ItemClickListener;
 import com.example.wagba_app.Interfaces.UserDao;
+import com.example.wagba_app.Models.CartData;
 import com.example.wagba_app.Models.RestaurantData;
 import com.example.wagba_app.Models.UserDatabase;
 import com.example.wagba_app.R;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,13 +44,14 @@ public class MenuActivity extends AppCompatActivity implements ItemClickListener
     private NavigationView navigationView;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference, databaseReference1;
     private RestaurantAdapter restaurantAdapter;
     private ArrayList<RestaurantData> list;
     private String title;
     static int restaurantNumber;
     private UserDatabase mUserDatabase;
     private UserDao mUserDao;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -59,31 +67,39 @@ public class MenuActivity extends AppCompatActivity implements ItemClickListener
         recyclerView = findViewById(R.id.horizontalRV);
         recyclerView.setHasFixedSize(true);
 
+        SharedPreferences sh = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+        String s1 = sh.getString("email", "");
+        String email = (s1);
+        Log.d("Email", email);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userID= user.getUid();
+
+
         Bundle extras = getIntent().getExtras();
         if (extras != null){
             title = extras.getString("title");
             if (title.equals("McDonald's")){
-                databaseReference = FirebaseDatabase.getInstance().getReference("mac");
+                databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child("mac");
             }else if (title.equals("Arabiata")){
-                databaseReference = FirebaseDatabase.getInstance().getReference("arabiata");
+                databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child("arabiata");
             }else if (title.equals("KFC")) {
-                databaseReference = FirebaseDatabase.getInstance().getReference("kfc");
+                databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child("kfc");
             }else if (title.equals("Bazooka")) {
-                databaseReference = FirebaseDatabase.getInstance().getReference("bazooka");
+                databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child("bazooka");
             }else if (title.equals("Abo Mazen")) {
-                databaseReference = FirebaseDatabase.getInstance().getReference("abomazen");
+                databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child("abomazen");
             }else if (title.equals("Hardee's")) {
-                databaseReference = FirebaseDatabase.getInstance().getReference("hardees");
+                databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child("hardees");
             }else if (title.equals("Cilantro")) {
-                databaseReference = FirebaseDatabase.getInstance().getReference("cilantro");
+                databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child("cilantro");
             }else if (title.equals("Cinnabon")) {
-                databaseReference = FirebaseDatabase.getInstance().getReference("cinnabon");
+                databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child("cinnabon");
             }
             else if (title.equals("Papa John's")) {
-                databaseReference = FirebaseDatabase.getInstance().getReference("papajohns");
+                databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child("papajohns");
             }
             else if (title.equals("Pizza Hut")) {
-                databaseReference = FirebaseDatabase.getInstance().getReference("pizzahut");
+                databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child("pizzahut");
             }
             restaurantNumber = extras.getInt("restaurantPosition");
         }
@@ -102,8 +118,33 @@ public class MenuActivity extends AppCompatActivity implements ItemClickListener
             }
         };
 
+        ItemClickListener clickListener1 = new ItemClickListener() {
+            @Override
+            public void addToCart(String name, String price, String link) {
+                ItemClickListener.super.addToCart(name, price, link);
+                databaseReference1 = FirebaseDatabase.getInstance().getReference("Cart");
+                CartData cartData = new CartData();
+                cartData.setTitle(name);
+                cartData.setPrice(price);
+                cartData.setImage(link);
+                databaseReference1.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        databaseReference1.child(userID).child(name).setValue(cartData);
+                        Toast.makeText(MenuActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+
+
+            }
+        };
+
         list = new ArrayList<>();
-        restaurantAdapter = new RestaurantAdapter(list, this, clickListener);
+        restaurantAdapter = new RestaurantAdapter(list, this, clickListener, clickListener1);
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navbar_open, R.string.navbar_close);
         drawerLayout.addDrawerListener(toggle);
@@ -112,9 +153,6 @@ public class MenuActivity extends AppCompatActivity implements ItemClickListener
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.archives:
-                        startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
-                        return true;
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         return true;
@@ -122,7 +160,7 @@ public class MenuActivity extends AppCompatActivity implements ItemClickListener
                         startActivity(new Intent(getApplicationContext(), CartActivity.class));
                         return true;
                     case R.id.track:
-                        startActivity(new Intent(getApplicationContext(), OrderTracking.class));
+                        startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
                         return true;
                     case R.id.logout:
                         new Thread(new Runnable() {
@@ -168,10 +206,6 @@ public class MenuActivity extends AppCompatActivity implements ItemClickListener
 
     public void CartRedirect (View view){
         startActivity(new Intent(getApplicationContext(), CartActivity.class));
-    }
-
-    public void viewDescription (View view){
-        startActivity(new Intent(getApplicationContext(), ItemDescription.class));
     }
 
 }

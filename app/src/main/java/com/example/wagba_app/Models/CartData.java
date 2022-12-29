@@ -5,7 +5,7 @@ public class CartData {
     private String title;
     private String image;
     private String price;
-    private int spinnerValue;
+    //private int spinnerValue;
 
 
 
@@ -33,22 +33,22 @@ public class CartData {
         this.price = price;
     }
 
-    public int getSpinnerValue() {
-        return spinnerValue;
-    }
+    //public int getSpinnerValue() {
+        //return spinnerValue;
+    //}
 
-    public void setSpinnerValue(int spinnerValue) {
-        this.spinnerValue = spinnerValue;
-    }
-
-
+    //public void setSpinnerValue(int spinnerValue) {
+        //this.spinnerValue = spinnerValue;
+    //}
 
 
 
-    public CartData(String title, String image, String price, int spinnerValue) {
+
+
+    public CartData() {
         this.title = title;
         this.image = image;
         this.price = price;
-        this.spinnerValue = spinnerValue;
+        //this.spinnerValue = spinnerValue;
     }
 }

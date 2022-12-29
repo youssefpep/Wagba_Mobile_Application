@@ -1,6 +1,5 @@
 package com.example.wagba_app.Adapters;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,11 +21,13 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
     ArrayList<RestaurantData> cardsData;
     Context context;
     ItemClickListener clickListener;
+    ItemClickListener clickListener1;
 
-    public RestaurantAdapter(ArrayList<RestaurantData> recyclerDataArrayList, Context context, ItemClickListener clickListener) {
+    public RestaurantAdapter(ArrayList<RestaurantData> recyclerDataArrayList, Context context, ItemClickListener clickListener, ItemClickListener clickListener1) {
         this.cardsData = recyclerDataArrayList;
         this.context = context;
         this.clickListener = clickListener;
+        this.clickListener1 = clickListener1;
     }
 
     @NonNull
@@ -46,6 +47,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
         holder.itemPrice.setText(recyclerData.getPrice());
         String link = recyclerData.getImage();
         Picasso.get().load(link).into(holder.itemImage);
+        String name = holder.itemName.getText().toString();
+        String price = holder.itemPrice.getText().toString();
         holder.description.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,8 +58,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
         holder.cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clickListener.click(holder.getAdapterPosition());
-
+                clickListener1.addToCart(name, price, link);
             }
         });
     }
@@ -66,9 +68,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
         return cardsData.size();
     }
 
-    public void setClickListener(ItemClickListener clickListener) {
-        this.clickListener = clickListener;
-    }
 
     public class MyHolder extends RecyclerView.ViewHolder{
         public TextView itemName;
@@ -79,8 +78,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
             super(itemView);
             itemName = itemView.findViewById(R.id.itemName);
             itemImage = itemView.findViewById(R.id.itemImage);
-            itemPrice = itemView.findViewById(R.id.itemprice);
-            cart = itemView.findViewById(R.id.addtocart);
+            itemPrice = itemView.findViewById(R.id.status);
+            cart = itemView.findViewById(R.id.cartBtn);
             description = itemView.findViewById(R.id.viewdescription);
         }
     }

@@ -12,16 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wagba_app.Models.CartData;
 import com.example.wagba_app.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyHolder> {
-    private ArrayList<CartData> cardsData;
+public class CartAdapter extends FirebaseRecyclerAdapter<CartData, CartAdapter.MyHolder> {
     private Context mcontext;
 
-    public CartAdapter(ArrayList<CartData> recyclerDataArrayList, Context mcontext) {
-        this.cardsData = recyclerDataArrayList;
-        this.mcontext = mcontext;
+    public CartAdapter(@NonNull FirebaseRecyclerOptions<CartData> options) {
+        super(options);
     }
 
     @NonNull
@@ -35,19 +34,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyHolder> {
 
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-        CartData recyclerData = cardsData.get(position);
-        holder.itemName.setText(recyclerData.getTitle());
-        holder.spinner.setSelection(recyclerData.getSpinnerValue());
-        holder.itemPrice.setText(recyclerData.getPrice());
-
+    public void onBindViewHolder(@NonNull MyHolder holder, int position, @NonNull CartData model) {
+        holder.itemName.setText(model.getTitle());
+        holder.itemPrice.setText(model.getPrice());
+        String link = model.getImage();
+        Picasso.get().load(link).into(holder.itemImage);
 
     }
 
-    @Override
-    public int getItemCount() {
-        return cardsData.size();
-    }
 
     public class MyHolder extends RecyclerView.ViewHolder {
         public TextView itemName;
@@ -58,7 +52,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyHolder> {
             super(itemView);
             itemName = itemView.findViewById(R.id.itemName);
             itemImage = itemView.findViewById(R.id.itemImage);
-            itemPrice = itemView.findViewById(R.id.itemprice);
+            itemPrice = itemView.findViewById(R.id.status);
             spinner = (Spinner) itemView.findViewById(R.id.spinner);
         }
     }

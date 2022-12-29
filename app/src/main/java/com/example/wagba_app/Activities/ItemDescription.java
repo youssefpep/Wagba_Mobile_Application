@@ -50,18 +50,21 @@ public class ItemDescription extends AppCompatActivity {
         imageRef = extras.getString("Image");
         price = extras.getString("Price");
         restaurantNo = extras.getInt("RestaurantNumber");
+        Log.d("vRestaurantNo", String.valueOf(restaurantNo));
         dishNo = extras.getInt("DishNumber");
 
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     int iterator = 0;
                     for (DataSnapshot ds : snapshot.getChildren()) {
+                        Log.d("vIterator", String.valueOf(iterator));
                         if (iterator == restaurantNo) {
                             String restaurantKey = ds.getKey();
+                            Log.d("vRestaurantName", String.valueOf(restaurantKey));
                             databaseReference.child(restaurantKey).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -70,16 +73,15 @@ public class ItemDescription extends AppCompatActivity {
                                         for (DataSnapshot ds : snapshot.getChildren()) {
                                             if(iterator2 == dishNo){
                                                 String dishKey = ds.getKey();
-                                                //itemName.setText((CharSequence) ds.child(dishKey).child("name").getValue().toString());
-                                                Object name = ds.child("name").getValue().toString();
-                                                Object description = ds.child("description").getValue().toString();
-                                                Object image = ds.child("image").getValue().toString();
-                                                Object price = ds.child("price").getValue().toString();
+                                                Log.d("vDishName", dishKey);
+                                                Object name = ds.child(dishKey).child("name").getValue();
+                                                Object description = ds.child(dishKey).child("description").getValue();
+                                                Object image = ds.child(dishKey).child("image").getValue();
+                                                Object price = ds.child(dishKey).child("price").getValue();
                                                 itemName.setText((CharSequence) name);
                                                 itemDescription.setText((CharSequence) description);
                                                 itemPrice.setText((CharSequence) price);
                                                 Picasso.get().load((String) image).into(itemImage);
-
                                             }
                                             iterator2++;
 
@@ -97,7 +99,6 @@ public class ItemDescription extends AppCompatActivity {
                         }
                         iterator++;
                     }
-
                 }
             }
 

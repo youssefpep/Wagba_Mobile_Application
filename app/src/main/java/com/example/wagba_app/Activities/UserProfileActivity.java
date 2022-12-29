@@ -58,9 +58,6 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.archives:
-                        startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
-                        return true;
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         return true;
@@ -68,7 +65,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), CartActivity.class));
                         return true;
                     case R.id.track:
-                        startActivity(new Intent(getApplicationContext(), OrderTracking.class));
+                        startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
                         return true;
                     case R.id.logout:
                         new Thread(new Runnable() {

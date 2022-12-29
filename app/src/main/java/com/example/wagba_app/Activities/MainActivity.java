@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,8 +34,6 @@ public class MainActivity extends AppCompatActivity{
     private UserDatabase mUserDatabase ;
     private UserDao mUserDao;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +48,6 @@ public class MainActivity extends AppCompatActivity{
         mUserDao = mUserDatabase.userDao();
 
 
-
-
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navbar_open, R.string.navbar_close);
         drawerLayout.addDrawerListener(toggle);
@@ -59,9 +56,6 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.archives:
-                        startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
-                        return true;
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         return true;
@@ -69,7 +63,7 @@ public class MainActivity extends AppCompatActivity{
                         startActivity(new Intent(getApplicationContext(), CartActivity.class));
                         return true;
                     case R.id.track:
-                        startActivity(new Intent(getApplicationContext(), OrderTracking.class));
+                        startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
                         return true;
                     case R.id.logout:
                         new Thread(new Runnable() {

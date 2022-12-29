@@ -1,6 +1,7 @@
 package com.example.wagba_app.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -18,6 +19,14 @@ import com.example.wagba_app.Interfaces.UserDao;
 import com.example.wagba_app.Models.UserDatabase;
 import com.example.wagba_app.R;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 
 import android.annotation.SuppressLint;
@@ -31,6 +40,7 @@ public class ReviewOrder extends AppCompatActivity {
     private NavigationView navigationView;
     private Toolbar toolbar;
     private UserDatabase mUserDatabase;
+    private DatabaseReference databaseReference;
     private UserDao mUserDao;
 
     @SuppressLint("MissingInflatedId")
@@ -48,13 +58,13 @@ public class ReviewOrder extends AppCompatActivity {
         toggle.syncState();
         mUserDatabase = UserDatabase.getDatabase(getApplicationContext());
         mUserDao = mUserDatabase.userDao();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userID= user.getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Orders").child(userID);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.archives:
-                        startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
-                        return true;
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         return true;
@@ -62,7 +72,7 @@ public class ReviewOrder extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), CartActivity.class));
                         return true;
                     case R.id.track:
-                        startActivity(new Intent(getApplicationContext(), OrderTracking.class));
+                        startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
                         return true;
                     case R.id.logout:
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
@@ -76,9 +86,26 @@ public class ReviewOrder extends AppCompatActivity {
                     case R.id.about:
                         startActivity(new Intent(getApplicationContext(), AboutActivity.class));
                         return true;
-
                 }
                 return true;
+            }
+        });
+        databaseReference.runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                Integer currentValue = currentData.getValue(Integer.class);
+                if (currentValue == null) {
+                    currentData.setValue(1);
+                } else {
+                    currentData.setValue(currentValue + 1);
+                }
+                return null;
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+
             }
         });
     }

@@ -31,6 +31,8 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="order_tracking_title">Orders Tracking</string>
+
 
     <string-array name="quantity_string_array">
         <item>0</item>

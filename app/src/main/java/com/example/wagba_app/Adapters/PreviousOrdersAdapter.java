@@ -39,7 +39,6 @@ public class PreviousOrdersAdapter extends RecyclerView.Adapter<PreviousOrdersAd
         PreviousOrdersData recyclerData = cardsData.get(position);
         holder.itemName.setText(recyclerData.getTitle());
         holder.itemPrice.setText(recyclerData.getPrice());
-        holder.itemdescription.setText(recyclerData.getDescription());
 
 
     }
@@ -52,7 +51,6 @@ public class PreviousOrdersAdapter extends RecyclerView.Adapter<PreviousOrdersAd
 
     public class MyHolder extends RecyclerView.ViewHolder {
         public TextView itemName;
-        public TextView itemdescription;
         public TextView itemPrice;
         public int mItems;
         public TextView mItemsText;
@@ -61,8 +59,7 @@ public class PreviousOrdersAdapter extends RecyclerView.Adapter<PreviousOrdersAd
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             itemName = itemView.findViewById(R.id.itemName);
-            itemdescription = itemView.findViewById(R.id.itemdescription);
-            itemPrice = itemView.findViewById(R.id.itemprice);
+            itemPrice = itemView.findViewById(R.id.status);
         }
     }
 

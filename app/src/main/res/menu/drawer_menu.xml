@@ -24,13 +24,6 @@
 
         </item>
 
-        <item
-            android:id="@+id/archives"
-            android:title="Previous Orders"
-            android:icon="@drawable/ic_archive"
-            android:iconTint="@color/textColor">
-
-        </item>
     </group>
 
     <group android:checkableBehavior="single">
