@@ -74,7 +74,7 @@ public class CartActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), CartActivity.class));
                         return true;
                     case R.id.track:
-                        startActivity(new Intent(getApplicationContext(), OrderTracking.class));
+                        startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
                         return true;
                     case R.id.logout:
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
@@ -94,9 +94,11 @@ public class CartActivity extends AppCompatActivity {
         });
 
         cardsData=new ArrayList<>();
+
         FirebaseRecyclerOptions<CartData> options = new FirebaseRecyclerOptions.Builder<CartData>()
                 .setQuery(mdatabaseReference, CartData.class)
                 .build();
+
         adapter=new CartAdapter(options);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
@@ -110,25 +112,18 @@ public class CartActivity extends AppCompatActivity {
                 Random rand = new Random();
                 int orderNo = rand.nextInt(1000);
                 databaseReference1.child(userID).child(String.valueOf(orderNo)).setValue("ordered");
-                //Log.d("mUSERID", String.valueOf(orderNo));
-                //Log.d("Test", "ana hena");
                 mdatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         snapshot.getRef().removeValue();
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
                 startActivity(new Intent(getApplicationContext(), ReviewOrder.class));
-
             }
         });
-
-
     }
 
     @Override protected void onStart()

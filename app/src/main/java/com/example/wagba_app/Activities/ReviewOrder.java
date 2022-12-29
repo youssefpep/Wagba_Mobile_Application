@@ -7,14 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.wagba_app.Activities.AboutActivity;
-import com.example.wagba_app.Activities.CartActivity;
-import com.example.wagba_app.Activities.ContactActivity;
-import com.example.wagba_app.Activities.LoginActivity;
-import com.example.wagba_app.Activities.MainActivity;
-import com.example.wagba_app.Activities.OrderTracking;
-import com.example.wagba_app.Activities.PreviousOrders;
-import com.example.wagba_app.Activities.UserProfileActivity;
 import com.example.wagba_app.Interfaces.UserDao;
 import com.example.wagba_app.Models.UserDatabase;
 import com.example.wagba_app.R;
@@ -32,8 +24,18 @@ import com.google.firebase.database.Transaction;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.Time;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ReviewOrder extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -42,6 +44,8 @@ public class ReviewOrder extends AppCompatActivity {
     private UserDatabase mUserDatabase;
     private DatabaseReference databaseReference;
     private UserDao mUserDao;
+    private Spinner spinner;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -52,6 +56,7 @@ public class ReviewOrder extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
+        spinner = findViewById(R.id.spinner2);
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navbar_open, R.string.navbar_close);
         drawerLayout.addDrawerListener(toggle);
@@ -90,27 +95,54 @@ public class ReviewOrder extends AppCompatActivity {
                 return true;
             }
         });
-        databaseReference.runTransaction(new Transaction.Handler() {
-            @NonNull
+        Button check = findViewById(R.id.checktime);
+        check.setOnClickListener(new View.OnClickListener() {
             @Override
-            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
-                Integer currentValue = currentData.getValue(Integer.class);
-                if (currentValue == null) {
-                    currentData.setValue(1);
-                } else {
-                    currentData.setValue(currentValue + 1);
+            public void onClick(View view) {
+                String enteredTime = spinner.getSelectedItem().toString();
+                Time time = new Time(Time.getCurrentTimezone());
+                time.setToNow();
+                String currentTime = time.format("%k:%M");
+                String time1 = "10:00";
+                String time2 = "3:00";
+                Boolean flag;
+                if(enteredTime.equals("12:00PM")){
+                    //Log.d("mDeviceTime", String.valueOf(currentTime));
+                    //Log.d("mSpinnerTime", enteredTime);
+                    flag = checktimings(currentTime, time1);
+                    if (!flag){
+                        Toast.makeText(ReviewOrder.this, "Cannot Order After 10:00AM", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(ReviewOrder.this, "Order Confimed", Toast.LENGTH_SHORT).show();
+                    }
+                }else if(enteredTime.equals("3:00PM")){
+                    //Log.d("mDeviceTime", String.valueOf(currentTime));
+                    //Log.d("mSpinnerTime", enteredTime);
+                    flag = checktimings(currentTime, time2);
+                    if (!flag){
+                        Toast.makeText(ReviewOrder.this, "Cannot Order After 1:00PM", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(ReviewOrder.this, "Order Confimed", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                return null;
-            }
-
-            @Override
-            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
-
             }
         });
     }
 
-    public void orderStatusRedirect(View view){
-        startActivity(new Intent(getApplicationContext(), OrderTracking.class));
+    private boolean checktimings(String time, String endtime) {
+        String pattern = "HH:mm";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        try {
+            Date date1 = sdf.parse(time);
+            Date date2 = sdf.parse(endtime);
+            if(date1.before(date2)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -53,13 +53,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activities.OrderTracking"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".Activities.ReviewOrder"
             android:exported="false">
             <meta-data

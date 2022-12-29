@@ -72,13 +72,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="75dp"
+                android:layout_marginBottom="25dp"
                 android:fontFamily="@font/bangers"
-                android:text="Identity Verification"
+                android:text="Pickup Time and Location"
                 android:textAlignment="center"
                 android:textColor="@color/textColor"
-                android:textSize="28sp"
-                android:layout_marginTop="75dp"
-                android:layout_marginBottom="25dp"></TextView>
+                android:textSize="28sp"></TextView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,75 +87,37 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="50dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                <Spinner
+                    android:id="@+id/spinner1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_email"
-                    app:hintTextColor="@color/textColor"
-                    app:startIconDrawable="@drawable/ic_email"
-                    app:startIconTint="@color/textColor"
-                    android:layout_marginTop="15dp">
+                    android:minHeight="40dp"
+                    android:layout_margin="16dp"
+                    android:entries="@array/location_array"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="@+id/textView" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dp"
-                        android:layout_marginRight="35dp"
-                        android:fontFamily="@font/bangers"
-                        android:inputType="textEmailAddress"
-                        android:textColor="@color/textColor">
-
-                    </com.google.android.material.textfield.TextInputEditText>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                <Spinner
+                    android:id="@+id/spinner2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Pickup Location"
-                    app:hintTextColor="@color/textColor"
-                    app:startIconDrawable="@drawable/ic_location"
-                    app:startIconTint="@color/textColor"
-                    android:layout_marginTop="15dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/bangers"
-                        android:textColor="@color/textColor"
-                        android:layout_marginLeft="35dp"
-                        android:layout_marginRight="35dp"
-                        android:inputType="text">
-
-                    </com.google.android.material.textfield.TextInputEditText>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Enter Pickup Time"
-                    app:hintTextColor="@color/textColor"
-                    app:startIconDrawable="@drawable/ic_time"
-                    app:startIconTint="@color/textColor"
-                    android:layout_marginTop="15dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/bangers"
-                        android:textColor="@color/textColor"
-                        android:layout_marginLeft="35dp"
-                        android:layout_marginRight="35dp"
-                        android:inputType="time">
-
-                    </com.google.android.material.textfield.TextInputEditText>
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:minHeight="40dp"
+                    android:layout_margin="16dp"
+                    android:entries="@array/time_array"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="@+id/textView" />
 
             </LinearLayout>
 
+
+
+
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/checktime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"

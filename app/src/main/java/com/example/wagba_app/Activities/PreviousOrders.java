@@ -7,6 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -14,12 +15,26 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wagba_app.Adapters.CartAdapter;
 import com.example.wagba_app.Adapters.PreviousOrdersAdapter;
+import com.example.wagba_app.Adapters.RestaurantAdapter;
 import com.example.wagba_app.Interfaces.UserDao;
+import com.example.wagba_app.Models.CardsData;
+import com.example.wagba_app.Models.CartData;
 import com.example.wagba_app.Models.PreviousOrdersData;
+import com.example.wagba_app.Models.RestaurantData;
 import com.example.wagba_app.Models.UserDatabase;
 import com.example.wagba_app.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -31,6 +46,7 @@ public class PreviousOrders extends AppCompatActivity {
     private ArrayList<PreviousOrdersData> cardsData;
     private UserDatabase mUserDatabase;
     private UserDao mUserDao;
+    private PreviousOrdersAdapter adapter;
 
 
     @Override
@@ -46,7 +62,9 @@ public class PreviousOrders extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
         recyclerView = findViewById(R.id.horizontalRV);
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userID= user.getUid();
+        DatabaseReference mdatabaseReference = FirebaseDatabase.getInstance().getReference("Orders").child(userID);
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navbar_open, R.string.navbar_close);
         drawerLayout.addDrawerListener(toggle);
@@ -82,27 +100,37 @@ public class PreviousOrders extends AppCompatActivity {
             }
         });
 
+        cardsData = new ArrayList<>();
+        mdatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    String key = dataSnapshot.getKey();
+                    Log.d("key", key);
+                    String value = dataSnapshot.getValue(String.class);
+                    Log.d("value", value);
+                    PreviousOrdersData data = new PreviousOrdersData();
+                    data.setTitle(key);
+                    data.setStatus(value);
+                    cardsData.add(data);
+                }
+                adapter = new PreviousOrdersAdapter(cardsData, PreviousOrders.this);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(PreviousOrders.this,LinearLayoutManager.VERTICAL, false));
+                //recyclerView.getAdapter().notifyItemInserted(cardsData.size());
+                //adapter.notifyDataSetChanged();
+            }
 
-        cardsData=new ArrayList<>();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        //added data to array list
-        cardsData.add(new PreviousOrdersData("Order #1", "Big Mac x2, Fries x2","100.00"));
-        cardsData.add(new PreviousOrdersData("Order #1", "Big Mac x2, Fries x2", "100.00"));
-        cardsData.add(new PreviousOrdersData("Order #1", "Big Mac x2, Fries x2",  "100.00"));
-        cardsData.add(new PreviousOrdersData("Order #1", "Big Mac x2, Fries x2",  "100.00"));
+            }
+        });
 
 
 
-        //added data from arraylist to adapter class.
-        PreviousOrdersAdapter adapter=new PreviousOrdersAdapter(cardsData,this);
-        //setting grid layout manager to implement grid view.
-        // in this method '2' represents number of colums to be displayed in grid view.
-
-        //at last set adapter to recycler view.
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(adapter);
-        recyclerView.getAdapter().notifyItemInserted(cardsData.size());
     }
+
 
     public void menuRedirect (View view){
         startActivity(new Intent(getApplicationContext(), MenuActivity.class));
