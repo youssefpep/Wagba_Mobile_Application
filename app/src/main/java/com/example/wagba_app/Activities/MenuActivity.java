@@ -73,7 +73,45 @@ public class MenuActivity extends AppCompatActivity implements ItemClickListener
         Log.d("Email", email);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userID= user.getUid();
-
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navbar_open, R.string.navbar_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        return true;
+                    case R.id.cart:
+                        startActivity(new Intent(getApplicationContext(), CartActivity.class));
+                        return true;
+                    case R.id.track:
+                        startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
+                        return true;
+                    case R.id.logout:
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mUserDao.deleteAll();
+                            }
+                        }).start();
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        return true;
+                    case R.id.profile:
+                        startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
+                        return true;
+                    case R.id.contact:
+                        startActivity(new Intent(getApplicationContext(), ContactActivity.class));
+                        return true;
+                    case R.id.about:
+                        startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+                        return true;
+                }
+                return true;
+            }
+        });
 
         Bundle extras = getIntent().getExtras();
         if (extras != null){
@@ -127,63 +165,13 @@ public class MenuActivity extends AppCompatActivity implements ItemClickListener
                 cartData.setTitle(name);
                 cartData.setPrice(price);
                 cartData.setImage(link);
-                databaseReference1.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        databaseReference1.child(userID).child(name).setValue(cartData);
-                        Toast.makeText(MenuActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-
-
+                databaseReference1.child(userID).child(name).setValue(cartData);
+                Toast.makeText(MenuActivity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
             }
         };
 
         list = new ArrayList<>();
         restaurantAdapter = new RestaurantAdapter(list, this, clickListener, clickListener1);
-        navigationView.bringToFront();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navbar_open, R.string.navbar_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        return true;
-                    case R.id.cart:
-                        startActivity(new Intent(getApplicationContext(), CartActivity.class));
-                        return true;
-                    case R.id.track:
-                        startActivity(new Intent(getApplicationContext(), PreviousOrders.class));
-                        return true;
-                    case R.id.logout:
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mUserDao.deleteAll();
-                            }
-                        }).start();
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        return true;
-                    case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
-                        return true;
-                    case R.id.contact:
-                        startActivity(new Intent(getApplicationContext(), ContactActivity.class));
-                        return true;
-                    case R.id.about:
-                        startActivity(new Intent(getApplicationContext(), AboutActivity.class));
-                        return true;
-                }
-                return true;
-            }
-        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(restaurantAdapter);
         recyclerView.getAdapter().notifyItemInserted(list.size());
@@ -206,6 +194,10 @@ public class MenuActivity extends AppCompatActivity implements ItemClickListener
 
     public void CartRedirect (View view){
         startActivity(new Intent(getApplicationContext(), CartActivity.class));
+    }
+
+    public void menuRedirect (View view){
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
 }

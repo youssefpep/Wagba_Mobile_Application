@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText emailText, passwordText;
     private Button login;
+    private Button back;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private ProgressDialog progressDialog;
@@ -39,6 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
+        //back = findViewById(R.id.backBtn);
         emailText = findViewById(R.id.loginEmail);
         passwordText = findViewById(R.id.loginPassword);
         login = findViewById(R.id.loginBtn);
@@ -96,8 +98,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void homeRedirect (View view){
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
+
+    public void splashRedirect (View view){
+        startActivity(new Intent(getApplicationContext(), Splash_Screen.class));
+    }
+
 
     @Override
     public void onClick(View view) {

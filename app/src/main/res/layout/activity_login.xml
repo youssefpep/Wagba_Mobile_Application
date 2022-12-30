@@ -16,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="25dp"
-            android:src="@drawable/ic_action_name"></ImageView>
+            android:src="@drawable/ic_action_name"
+            android:onClick="splashRedirect"></ImageView>
 
         <TextView
             android:layout_width="159dp"

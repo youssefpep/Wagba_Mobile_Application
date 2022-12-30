@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity{
         mUserDao = mUserDatabase.userDao();
 
 
+
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navbar_open, R.string.navbar_close);
         drawerLayout.addDrawerListener(toggle);
@@ -88,7 +89,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-
         cardsData=new ArrayList<>();
         cardsData.add(new CardsData("Abo Mazen",R.drawable.abomazen));
         cardsData.add(new CardsData("Arabiata",R.drawable.arabiata));
@@ -100,11 +100,21 @@ public class MainActivity extends AppCompatActivity{
         cardsData.add(new CardsData("McDonald\'s",R.drawable.mac));
         cardsData.add(new CardsData("Papa John\'s",R.drawable.papajohns));
         cardsData.add(new CardsData("Pizza Hut",R.drawable.pizzahut));
-
         MyMenuAdapter adapter=new MyMenuAdapter(cardsData, this);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
         recyclerView.getAdapter().notifyItemInserted(cardsData.size());
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+    }
+
+    public void backClicked(View view){
+        onBackPressed();
     }
 }

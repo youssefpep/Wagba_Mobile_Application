@@ -116,8 +116,6 @@ public class ReviewOrder extends AppCompatActivity {
                         Toast.makeText(ReviewOrder.this, "Order Confimed", Toast.LENGTH_SHORT).show();
                     }
                 }else if(enteredTime.equals("3:00PM")){
-                    //Log.d("mDeviceTime", String.valueOf(currentTime));
-                    //Log.d("mSpinnerTime", enteredTime);
                     flag = checktimings(currentTime, time2);
                     if (!flag){
                         Toast.makeText(ReviewOrder.this, "Cannot Order After 1:00PM", Toast.LENGTH_SHORT).show();
@@ -144,5 +142,9 @@ public class ReviewOrder extends AppCompatActivity {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void CartRedirect (View view){
+        startActivity(new Intent(getApplicationContext(), CartActivity.class));
     }
 }

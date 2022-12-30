@@ -132,9 +132,9 @@ public class PreviousOrders extends AppCompatActivity {
     }
 
 
-    public void menuRedirect (View view){
-        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
-
+    public void homeRedirect (View view){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 
 

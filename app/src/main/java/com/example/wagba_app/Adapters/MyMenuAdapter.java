@@ -66,9 +66,6 @@ public class MyMenuAdapter extends RecyclerView.Adapter<MyMenuAdapter.MyHolder> 
     public int getItemCount() {
         return cardsData.size();
     }
-
-
-
     public class MyHolder extends RecyclerView.ViewHolder{
         public TextView restaurantName;
         public ImageView restaurantImage;

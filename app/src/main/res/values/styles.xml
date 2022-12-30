@@ -16,14 +16,6 @@
         <item name="android:background">@drawable/button_background</item>
     </style>
 
-    <style name="PlusButtons" parent="ScoreButtons">
-        <item name="android:src">@drawable/ic_add</item>
-    </style>
-
-
-    <style name="MinusButtons" parent="ScoreButtons">
-        <item name="android:src">@drawable/ic_minus</item>
-    </style>
 
     <style name="ScoreText">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Headline</item>

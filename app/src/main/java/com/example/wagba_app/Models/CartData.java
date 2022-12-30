@@ -7,8 +7,6 @@ public class CartData {
     private String price;
     //private int spinnerValue;
 
-
-
     public String getTitle() {
         return title;
     }
